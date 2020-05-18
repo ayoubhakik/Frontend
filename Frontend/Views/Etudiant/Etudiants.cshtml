@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Frontend.Models.Etudiant>
+@{
+                /**/
+
+                ViewData["Title"] = "Etudiants";
+}
+
+<h2>liste des Etudiants</h2>
+<br />
+<div>
+    <a href='@Url.Action("EtudiantForm","Etudiant")'>Ajouter</a>
+</div>
+<div>
+    @using (Html.BeginForm("Chercher", "Etudiant", FormMethod.Post, new { @class = "navbar-form", enctype = "multipart/form-data" })) {
+    <div class="form-group">
+        <label>Chercher par nom :</label>
+        <input type="text" name="motCle" value="@Html.ViewBag.motCle" />
+        <button class="btn btn-primary" type="submit">Chercher</button>
+    </div>
+    }
+        
+    
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.id)</th>
+            <th>@Html.DisplayNameFor(model => model.nom)</th>
+            <th>@Html.DisplayNameFor(model => model.prenom)</th>
+            <th>Filiere</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => e.id)</td>
+
+                <td>@Html.DisplayFor(modelItem => e.nom)</td>
+
+                <td>@Html.DisplayFor(modelItem => e.prenom)</td>
+
+                <td>@Html.DisplayFor(modelItem => e.filiere.nom_filiere)</td>
+
+                <td>
+                    @Html.ActionLink("Supprimer", "Delete", new { id = e.id }) 
+                   
+                </td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
